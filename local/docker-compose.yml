@@ -1,0 +1,38 @@
+version: "3.8"
+volumes:
+  data:
+networks:
+  private:
+services:
+  webapp:
+    build:
+      context: frontend
+      dockerfile: docker/react-app/Dockerfile
+      target: local
+      args:
+        webapp_name: "webapp"
+    networks:
+      - private
+    volumes:
+      - "./frontend/webapp:/webapp"
+    ports:
+      - target: 3000
+        published: 3000
+        protocol: tcp
+        mode: host
+    environment:
+      - BOOT_BUILD_ID=local
+  api:
+    build:
+        context: api
+        dockerfile: docker/Dockerfile
+    image: microblog-api
+    ports:
+      - "${MICROBLOG_API_PORT:-5000}:5000"
+    volumes:
+      - type: volume
+        source: data
+        target: /data
+    env_file: api/.env
+    environment:
+      DATABASE_URL: sqlite:////data/db.sqlite
