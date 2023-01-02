@@ -6,6 +6,7 @@ import FeedPage from "./pages/FeedPage";
 import ExplorePage from "./pages/ExplorePage";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/explore" element={<ExplorePage />} />
             <Route path="/user/:username" element={<UserPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="/*" element={<Navigate to="/" />} />
           </Routes>
         </ApiProvider>
