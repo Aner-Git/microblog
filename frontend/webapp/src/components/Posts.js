@@ -12,13 +12,14 @@ export default function Posts({ url = "/feed" }) {
   useEffect(() => {
     let fetcher = async () => {
       let response = await client.get(url, { offset: 0, limit: 5 });
-      if (response.ok) {
-        //we have data.
-        setPosts(response.body.data);
-        setPagination(response.body.pagination);
-      } else {
+      if (!response.ok) {
         setPosts(null);
+        return;
       }
+
+      //we have data.
+      setPosts(response.body.data);
+      setPagination(response.body.pagination);
     };
     fetcher();
   }, [url, client]);
