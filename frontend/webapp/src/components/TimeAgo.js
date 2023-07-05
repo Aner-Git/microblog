@@ -45,7 +45,7 @@ export default function TimeAgo({ isoDate }) {
   useEffect(() => {
     let intID = setInterval(() => {
       setUpdate((update) => update + 1);
-    }, new Date().getTime() + interval * 1000);
+    }, interval * 1000);
     return () => {
       clearInterval(intID);
     };
